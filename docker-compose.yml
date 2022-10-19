@@ -1,0 +1,18 @@
+version: '3'
+
+networks:
+  password-hashing-service-net:
+    name: password-hashing-service-net
+
+services:
+  password-hashing-service:
+    build: ./password-hashing-service
+    networks:
+      - password-hashing-service-net
+    ports:
+      - 8081:80
+    restart: unless-stopped
+    environment:
+      - APACHE_LOG_DIR=/var/log/apache/
+    volumes:
+      - ./password-hashing-service/src/:/var/www/html/
